@@ -1,0 +1,4 @@
+<app-timer [canAdd]="true" [canRemove]="false" id="parentTimer" (addTimerEmitter)="addTimer()" (timerStopEmitter)="timerStoped($event)"></app-timer>
+<div *ngFor="let timer of timers">
+  <app-timer #childTimer [canAdd]="false" [canRemove]="true" [id]="timer.id" (removeTimerEmitter)="removeTimer(timer.id)" (timerStopEmitter)="timerStoped($event)"></app-timer>
+</div>

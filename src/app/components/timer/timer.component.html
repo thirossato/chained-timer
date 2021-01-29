@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-body">
+    <!-- <fa-icon [icon]="faLink" *ngIf='parent.length > 0 && linked'></fa-icon>
+    <fa-icon [icon]="faUnlink" *ngIf='parent.length > 0 && !linked'></fa-icon> -->
+    <input type="number" name="timerInterval" id="timerInterval" *ngIf="!ticking" [value]="currentTick" (change)="changeTimer($event)">
+    <p *ngIf="ticking">{{currentTick}} segundos</p>
+    <fa-icon [icon]="faPlayCircle" (click)="startTimer()"></fa-icon>
+    <fa-icon [icon]="faStopCircle" (click)="stopTimer()" ></fa-icon>
+    <fa-icon [icon]="faPlusCircle" *ngIf="canAdd" (click)="addTimer()"></fa-icon>
+    <fa-icon [icon]="faMinusCircle" *ngIf="canRemove" (click)="removeTimer()"></fa-icon>
+  </div>
+</div>
