@@ -1,4 +1,5 @@
-<app-timer [canAdd]="true" [canRemove]="false" id="parentTimer" (addTimerEmitter)="addTimer()" (timerStopEmitter)="timerStoped($event)"></app-timer>
+<app-timer #parentTimer [canAdd]="true" [canRemove]="false" id="parentTimer" (addTimerEmitter)="addTimer()" (timerStopEmitter)="timerStoped($event)" (timerStartEmitter)="parentTimerStarted()"></app-timer>
 <div *ngFor="let timer of timers">
   <app-timer #childTimer [canAdd]="false" [canRemove]="true" [id]="timer.id" (removeTimerEmitter)="removeTimer(timer.id)" (timerStopEmitter)="timerStoped($event)"></app-timer>
 </div>
+<button class="btn btn-primary" (click)="stopAllTicks()">Stop all ticks</button>

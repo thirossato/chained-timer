@@ -17,6 +17,7 @@ export class TimerComponent implements OnInit {
   @Output() addTimerEmitter: EventEmitter<any> = new EventEmitter();
   @Output() removeTimerEmitter: EventEmitter<any> = new EventEmitter();
   @Output() timerStopEmitter: EventEmitter<any> = new EventEmitter();
+  @Output() timerStartEmitter: EventEmitter<any> = new EventEmitter();
 
   faLink = faLink;
   faUnlink = faUnlink;
@@ -25,26 +26,27 @@ export class TimerComponent implements OnInit {
   faPlusCircle = faPlusCircle;
   faMinusCircle = faMinusCircle;
 
+  originalTick: number = 0
   currentTick: number = 0;
   intervals: any;
 
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.canAdd)
   }
 
   startTimer() {
     this.ticking = true;
+    this.timerStartEmitter.emit();
     this.playAudio("../../../assets/420518__jfrecords__vmax-box.wav");
+    this.originalTick = this.currentTick;
     this.doTicks();
-
   }
 
   doTicks() {
     let intervals = interval(1000);
     this.intervals = intervals.subscribe(() => {
-      if (this.currentTick < 1) {
+      if (this.currentTick === 1) {
         this.stopTimer();
       } else {
         this.currentTick--;
@@ -55,7 +57,7 @@ export class TimerComponent implements OnInit {
 
   stopTimer() {
     this.ticking = false;
-    this.currentTick = 0;
+    this.currentTick = this.originalTick
     this.intervals.unsubscribe();
     this.playAudio("../../../assets/420514__jfrecords__end-box.wav");
     this.timerStopEmitter.emit(this.id);
